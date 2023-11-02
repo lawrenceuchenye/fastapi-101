@@ -3,21 +3,20 @@ from fastapi import FastAPI
 #main app instance
 app=FastAPI()
 
-students={
-    "1":{
-        "name":"David",
-        "department":"Computer Sci.",
-        "mat":"2120/123645/regular"
-    },
-}
+
+users=[]
 
 
 @app.get("/")
 def index():
-    return { "data":"started"}
+    return {"basuc":"UI"}
 
-@app.get("/student-info/{id}/info")
-def student_info(id:int):
-    return {"student":students[st(id)]}
+@app.get("/users")
+def get_users():
+    return  users
 
+@app.post("/users")
+def create_users(user):
+    users.append(user)
+    return {"name":"added"}
 
