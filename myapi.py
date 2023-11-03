@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from typing import Optional,List
 
 #main app instance
 app=FastAPI()
@@ -7,18 +8,17 @@ app=FastAPI()
 
 users=[]
 
-
+#create model for validating input
 class User(BaseModel):
     email:str
     name:str
-    is_valid:bool
-    is_active:bool
+    is_valid:Optional[bool]
 
 @app.get("/")
 def index():
     return {"basuc":"UI"}
 
-@app.get("/users")
+@app.get("/users",response_model=List[User])
 def get_users():
     return  users
 
