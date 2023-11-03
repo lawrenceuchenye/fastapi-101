@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI,Path
 from pydantic import BaseModel
 from typing import Optional,List
 
@@ -27,3 +27,7 @@ def create_users(user:User):
     users.append(user)
     return {"name":"added"}
 
+
+@app.get("/users/{id}")
+def user_detail(id:int=Path(...,description="User ID",gt=2)):
+    return users[id]
